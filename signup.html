@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - Tipo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Sign Up</h1>
+    <form action="https://formspree.io/f/yourformid" method="POST">
+      <label for="email">Email:</label><br>
+      <input type="email" name="email" required><br><br>
+
+      <label for="username">Username:</label><br>
+      <input type="text" name="username" required><br><br>
+
+      <label for="message">Message to Admin:</label><br>
+      <textarea name="message" placeholder="Hi, I want to sign up on Tipo. Please verify me."></textarea><br><br>
+
+      <input type="hidden" name="_subject" value="New Tipo Account Request">
+      <input type="hidden" name="_cc" value="billybanksbills@gmail.com">
+
+      <button type="submit">Request Access</button>
+    </form>
+    <p>Already have an account? <a href="login.html">Login</a></p>
+  </div>
+</body>
+</html>

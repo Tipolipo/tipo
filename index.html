@@ -4,13 +4,68 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tipo - Welcome</title>
+  <title>Tipo Login</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
     <h1>Welcome to Tipo</h1>
-    <p>To place a data order, please <a href="signup.html">sign up</a> or <a href="login.html">log in</a>.</p>
+    <form id="authForm">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Login / Signup</button>
+    </form>
+    <p id="status"></p>
   </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      sendEmailVerification
+    } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAHxD1cLtc9iBL1XENJuPvdACLqn4Kmgek",
+      authDomain: "tipo-d5f6e.firebaseapp.com",
+      projectId: "tipo-d5f6e",
+      storageBucket: "tipo-d5f6e.firebasestorage.app",
+      messagingSenderId: "806761149176",
+      appId: "1:806761149176:web:d0398147122f54eaba810d",
+      measurementId: "G-JQTQD9KS84"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const form = document.getElementById("authForm");
+    const status = document.getElementById("status");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = form.email.value;
+      const password = form.password.value;
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then(({ user }) => {
+          if (user.emailVerified) {
+            window.location.href = "order.html";
+          } else {
+            status.innerText = "Please verify your email before proceeding.";
+            sendEmailVerification(user);
+          }
+        })
+        .catch(() => {
+          createUserWithEmailAndPassword(auth, email, password)
+            .then(({ user }) => {
+              sendEmailVerification(user);
+              status.innerText = "Verification email sent. Please verify to continue.";
+            })
+            .catch(err => status.innerText = "Error: " + err.message);
+        });
+    });
+  </script>
 </body>
 </html>

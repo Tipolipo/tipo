@@ -3,42 +3,92 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Place Order - Tipo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tipo | Place Order</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container">
-    <h1>Place Data Order</h1>
-    <form action="https://formspree.io/f/yourformid" method="POST">
-      <label for="network">Select Network:</label><br>
-      <select name="network" required>
+    <h1>Place Your Data Order</h1>
+    <form id="orderForm">
+      <label for="network">Choose Network:</label>
+      <select id="network" required>
         <option value="MTN">MTN</option>
         <option value="Telecel">Telecel</option>
-      </select><br><br>
+      </select>
 
-      <label for="size">Data Size:</label><br>
-      <select name="size" required>
-        <option value="1GB - GHC5.50">1GB - GHC5.50</option>
-        <option value="2GB - GHC11.00">2GB - GHC11.00</option>
-        <option value="3GB - GHC15.95">3GB - GHC15.95</option>
-        <option value="4GB - GHC20.35">4GB - GHC20.35</option>
-        <option value="5GB - GHC24.32">5GB - GHC24.32</option>
-        <option value="6GB - GHC27.89">6GB - GHC27.89</option>
-        <option value="7GB - GHC31.10">7GB - GHC31.10</option>
-        <option value="8GB - GHC34.00">8GB - GHC34.00</option>
-        <option value="9GB - GHC36.60">9GB - GHC36.60</option>
-        <option value="10GB - GHC39.00">10GB - GHC39.00</option>
-      </select><br><br>
+      <label for="dataAmount">Data Amount (1GB to 30GB):</label>
+      <input type="number" id="dataAmount" min="1" max="30" required />
 
-      <label for="phone">Phone Number to Receive Data:</label><br>
-      <input type="text" name="phone" required><br><br>
-
-      <input type="hidden" name="_subject" value="New Data Order from Tipo">
-      <input type="hidden" name="_cc" value="billybanksbills@gmail.com">
+      <label for="phone">Recipient Phone Number:</label>
+      <input type="tel" id="phone" required placeholder="e.g. 0541234567" />
 
       <button type="submit">Submit Order</button>
+      <p id="response"></p>
     </form>
+    <button onclick="logout()">Logout</button>
   </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+    import {
+      getAuth,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAHxD1cLtc9iBL1XENJuPvdACLqn4Kmgek",
+      authDomain: "tipo-d5f6e.firebaseapp.com",
+      projectId: "tipo-d5f6e",
+      storageBucket: "tipo-d5f6e.firebasestorage.app",
+      messagingSenderId: "806761149176",
+      appId: "1:806761149176:web:d0398147122f54eaba810d",
+      measurementId: "G-JQTQD9KS84"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const orderForm = document.getElementById("orderForm");
+    const response = document.getElementById("response");
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user || !user.emailVerified) {
+        alert("Access denied. Please login and verify your email.");
+        window.location.href = "index.html";
+      }
+    });
+
+    window.logout = () => {
+      signOut(auth).then(() => window.location.href = "index.html");
+    };
+
+    orderForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const data = {
+        network: document.getElementById("network").value,
+        dataAmount: document.getElementById("dataAmount").value,
+        phone: document.getElementById("phone").value,
+        email: auth.currentUser.email,
+        time: new Date().toLocaleString()
+      };
+
+      fetch("https://formspree.io/f/xqkryjok", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      })
+      .then(res => {
+        if (res.ok) {
+          response.innerText = "Order submitted successfully!";
+          orderForm.reset();
+        } else {
+          response.innerText = "Error submitting order.";
+        }
+      });
+    });
+  </script>
 </body>
 </html>

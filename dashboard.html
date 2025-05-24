@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tipo Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="dashboard.js"></script>
+</head>
+<body>
+  <div class="dashboard">
+    <h2 id="greeting">Welcome, <span id="username">User</span>!</h2>
+    <p>We are Open</p>
+
+    <div class="card-grid">
+      <div class="card blue">
+        <div class="icon">💰</div>
+        <div class="info">
+          <p>Wallet Balance</p>
+          <h3 id="wallet">₵0.00</h3>
+        </div>
+      </div>
+      <div class="card yellow">
+        <div class="icon">💸</div>
+        <div class="info">
+          <p>Amount Spent</p>
+          <h3 id="spent">₵0.00</h3>
+        </div>
+      </div>
+      <div class="card green">
+        <div class="icon">📦</div>
+        <div class="info">
+          <p>Total Orders</p>
+          <h3 id="orders">0</h3>
+        </div>
+      </div>
+      <div class="card black">
+        <div class="icon">📝</div>
+        <div class="info">
+          <p>Order History</p>
+        </div>
+      </div>
+      <div class="card darkblue">
+        <div class="icon">📶</div>
+        <div class="info">
+          <p>Buy Data</p>
+        </div>
+      </div>
+      <div class="card teal">
+        <div class="icon">➕</div>
+        <div class="info">
+          <p>Topup Wallet</p>
+        </div>
+      </div>
+    </div>
+
+    <a href="https://wa.me/233XXXXXXXXX?text=Join%20Tipo%20channel" class="whatsapp-button">Join Our WhatsApp Channel</a>
+
+    <nav class="bottom-nav">
+      <a href="#">Home</a>
+      <a href="#">Profile</a>
+      <a href="#">Support</a>
+      <a href="#">Services</a>
+      <a href="#" id="logout">Logout</a>
+    </nav>
+  </div>
+</body>
+</html>

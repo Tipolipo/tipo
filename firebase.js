@@ -1,49 +1,23 @@
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "tipo-d5f6e.firebaseapp.com",
-  projectId: "tipo-d5f6e",
-  storageBucket: "tipo-d5f6e.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyBf3rUPwOySMK6f9Uu7S7OHd4xLO9QhFSo",
+    authDomain: "tipolipo-13966.firebaseapp.com",
+    projectId: "tipolipo-13966",
+    storageBucket: "tipolipo-13966.firebasestorage.app",
+    messagingSenderId: "771230672816",
+    appId: "1:771230672816:web:94180aaf9fe20f29655875",
+    measurementId: "G-0P7X5N319E"
+  };
 
-auth.onAuthStateChanged(user => {
-  if (!user && window.location.pathname.includes('dashboard')) {
-    window.location.href = 'login.html';
-  }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-  const orderForm = document.getElementById('orderForm');
-  if (orderForm) {
-    orderForm.addEventListener('submit', async e => {
-      e.preventDefault();
-      const network = document.getElementById('network').value;
-      const amount = document.getElementById('amount').value;
-      const phone = document.getElementById('phone').value;
-      try {
-        await db.collection('orders').add({
-          user: auth.currentUser.email,
-          network,
-          amount,
-          phone,
-          timestamp: firebase.firestore.FieldValue.serverTimestamp()
-        });
-        document.getElementById('orderStatus').textContent = 'Order placed successfully!';
-        // Email trigger would be handled by backend or Firebase function
-      } catch (err) {
-        document.getElementById('orderStatus').textContent = 'Error placing order.';
-      }
-    });
-  }
-});
-
-function logout() {
-  auth.signOut().then(() => {
-    window.location.href = 'login.html';
-  });
-}
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>

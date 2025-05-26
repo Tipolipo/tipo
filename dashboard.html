@@ -3,66 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tipo Dashboard</title>
+  <title>Dashboard - Tipo DS</title>
   <link rel="stylesheet" href="style.css" />
-  <script type="module" src="dashboard.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+  <script defer src="firebase.js"></script>
 </head>
 <body>
-  <div class="dashboard">
-    <h2 id="greeting">Welcome, <span id="username">User</span>!</h2>
-    <p>We are Open</p>
-
-    <div class="card-grid">
-      <div class="card blue">
-        <div class="icon">💰</div>
-        <div class="info">
-          <p>Wallet Balance</p>
-          <h3 id="wallet">₵0.00</h3>
-        </div>
-      </div>
-      <div class="card yellow">
-        <div class="icon">💸</div>
-        <div class="info">
-          <p>Amount Spent</p>
-          <h3 id="spent">₵0.00</h3>
-        </div>
-      </div>
-      <div class="card green">
-        <div class="icon">📦</div>
-        <div class="info">
-          <p>Total Orders</p>
-          <h3 id="orders">0</h3>
-        </div>
-      </div>
-      <div class="card black">
-        <div class="icon">📝</div>
-        <div class="info">
-          <p>Order History</p>
-        </div>
-      </div>
-      <div class="card darkblue">
-        <div class="icon">📶</div>
-        <div class="info">
-          <p>Buy Data</p>
-        </div>
-      </div>
-      <div class="card teal">
-        <div class="icon">➕</div>
-        <div class="info">
-          <p>Topup Wallet</p>
-        </div>
-      </div>
-    </div>
-
-    <a href="https://wa.me/233XXXXXXXXX?text=Join%20Tipo%20channel" class="whatsapp-button">Join Our WhatsApp Channel</a>
-
-    <nav class="bottom-nav">
-      <a href="#">Home</a>
-      <a href="#">Profile</a>
-      <a href="#">Support</a>
-      <a href="#">Services</a>
-      <a href="#" id="logout">Logout</a>
+  <header>
+    <h1>Tipo DS Dashboard</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="#" onclick="logout()">Logout</a>
     </nav>
-  </div>
+  </header>
+  <main>
+    <section>
+      <h2>Place Data Order</h2>
+      <form id="orderForm">
+        <input type="text" id="network" placeholder="Network (e.g., MTN)" required /><br />
+        <input type="text" id="amount" placeholder="Amount (MB/GB)" required /><br />
+        <input type="tel" id="phone" placeholder="Phone Number" required /><br />
+        <button type="submit">Submit Order</button>
+      </form>
+      <div id="orderStatus"></div>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2025 Tipo DS. All rights reserved.</p>
+  </footer>
 </body>
 </html>

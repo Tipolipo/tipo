@@ -1,71 +1,34 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tipo Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tipo DS</title>
   <link rel="stylesheet" href="style.css" />
+  <script defer src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+  <script defer src="firebase.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h1>Welcome to Tipo</h1>
-    <form id="authForm">
-      <input type="email" id="email" placeholder="Email" required />
-      <input type="password" id="password" placeholder="Password" required />
-      <button type="submit">Login / Signup</button>
-    </form>
-    <p id="status"></p>
-  </div>
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
-    import {
-      getAuth,
-      createUserWithEmailAndPassword,
-      signInWithEmailAndPassword,
-      sendEmailVerification
-    } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyAHxD1cLtc9iBL1XENJuPvdACLqn4Kmgek",
-      authDomain: "tipo-d5f6e.firebaseapp.com",
-      projectId: "tipo-d5f6e",
-      storageBucket: "tipo-d5f6e.firebasestorage.app",
-      messagingSenderId: "806761149176",
-      appId: "1:806761149176:web:d0398147122f54eaba810d",
-      measurementId: "G-JQTQD9KS84"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    const form = document.getElementById("authForm");
-    const status = document.getElementById("status");
-
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const email = form.email.value;
-      const password = form.password.value;
-
-      signInWithEmailAndPassword(auth, email, password)
-        .then(({ user }) => {
-          if (user.emailVerified) {
-            window.location.href = "order.html";
-          } else {
-            status.innerText = "Please verify your email before proceeding.";
-            sendEmailVerification(user);
-          }
-        })
-        .catch(() => {
-          createUserWithEmailAndPassword(auth, email, password)
-            .then(({ user }) => {
-              sendEmailVerification(user);
-              status.innerText = "Verification email sent. Please verify to continue.";
-            })
-            .catch(err => status.innerText = "Error: " + err.message);
-        });
-    });
-  </script>
+  <header>
+    <h1>Welcome to Tipo DS</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html">Login</a>
+      <a href="signup.html">Signup</a>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <h2>Your #1 Data Service Provider</h2>
+      <p>Fast, reliable and affordable data plans for all networks.</p>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2025 Tipo DS. All rights reserved.</p>
+  </footer>
 </body>
 </html>
